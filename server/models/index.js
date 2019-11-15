@@ -5,7 +5,6 @@ module.exports = {
   messages: {
     get: function (req, res) {
       db.query('SELECT * FROM messages', function (err, rows, fields) {
-        connection.end();
         if (err) {
           console.log('error in models', err);
         } else {
@@ -16,18 +15,23 @@ module.exports = {
     }, // a function which produces all the messages
     post: function (req, res) {
       // var sql --  message insert
-      // db query
-      //connection end
-      //error message
-      // else
-    } // a function which can be used to insert a message into the database
+      var sql = 'INSERT INTO messages (user, room, content) VALUES (2, 3, \'hello this is my first message\'';
+      db.query(sql, function(err, result) {
+        if (err) {
+          throw err;
+        } else {
+          console.log('1 record inserted!', result);
+        }
+      });
+      db.end();
+    }
+
   },
 
   users: {
     // Ditto as above.
     get: function (req, res) {
       db.query('SELECT * FROM users', function (err, rows, fields) {
-        connection.end();
         if (err) {
           console.log('error in models', err);
         } else {
@@ -36,7 +40,18 @@ module.exports = {
         }
       });
     },
-    post: function () { }
+    post: function (req, res) {
+      // var sql --  message insert
+      var sql = 'INSERT INTO messages (user, room, content) VALUES (2, 3, \'hello this is my first message\'';
+      db.query(sql, function(err, result) {
+        if (err) {
+          throw err;
+        } else {
+          console.log('1 record inserted!', result);
+        }
+      });
+      db.end();
+    }
   }
 };
 
